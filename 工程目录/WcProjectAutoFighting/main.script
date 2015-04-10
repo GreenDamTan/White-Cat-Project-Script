@@ -1,0 +1,566 @@
+-----------------------------------------------------------------------
+-- 本文件为脚本入口文件，请不要删除
+-- 该脚本适用于脚本精灵2.0.1及以上版本
+-- 脚本从main()开始执行
+-- 脚本界面从createUI()开始执行，脚本可以无界面
+-----------------------------------------------------------------------
+-- 创建脚本界面入口
+
+function gameIsExist()
+	if isColor(61,305,0x58BCF7) and isColor(33,398,0x5FBEF6) then
+		return false;
+	else
+		return true;	
+	end	
+end
+function gotoGameAgain()
+	if isColor(61,305,0x58BCF7) and isColor(33,398,0x5FBEF6) then
+		-- click game again.
+		touchClick(285,109);
+		sleep(20000);		
+	end
+end
+
+function useSkill1()
+	sleep(500);
+	touchDown(461,339);
+	sleep(500);
+	touchMove(620,199);-- skill 1 position
+	toast("skll 1");
+	--touchMove(620,491);-- skill 2 position
+	touchUp();
+	sleep(500);	
+end
+
+function useSkill2()
+	sleep(500);
+	touchDown(461,339);
+	sleep(500);	
+	touchMove(620,491);-- skill 2 position
+	toast("skll 2");	
+	touchUp();
+	sleep(500);	
+end
+
+function loopFight()
+	
+	if type == "2-12-3" then 
+		toast("click 12-3  (536,353)");
+		sleep(4000);
+		touchDown(536,353);
+		sleep(400);
+		touchUp();
+		sleep(4000);		
+	end
+
+	if (type == "2-12-2") then
+		toast("click 12-2  (436,353)");
+		sleep(4000);
+		touchDown(436,353);
+		sleep(400);
+		touchUp();
+		sleep(4000);
+	end
+	
+	if (type == "2-10-2") then
+		toast("click , 10-2 ");
+		sleep(4000);
+		
+		--485,684 to 691,677, this is only work solution in white product.
+		touchClick(480,700);
+		sleep(100);	
+		touchDown(510,700);
+		sleep(100);	
+		touchMove(540,700);
+		sleep(100);
+		touchMove(570,700);
+		sleep(100);
+		touchMove(600,700);
+		sleep(100);
+		touchMove(630,700);
+		sleep(100);
+		touchMove(660,700);
+		sleep(100);
+		touchMove(690,700);	
+		touchUp();	
+		sleep(2000);
+		
+		--click 10-2 on new postion.
+		touchDown(360,329);
+		sleep(400);
+		touchUp();
+
+		sleep(4000);
+	end	
+	if(type == "3-5-3") then
+		toast("click 3-5-3  (436,353)");
+		sleep(4000);
+		touchDown(436,353);
+		sleep(400);
+		touchUp();
+		sleep(4000);				
+	end
+	
+	toast("use first friend - (825,353)");
+	sleep(4000);
+	touchDown(825,353);
+	sleep(500);
+	touchUp();	
+	sleep(4000);
+	
+	toast("挑戰 Button - (219,575)");
+	sleep(4000);
+	touchDown(219,575);
+	sleep(500);
+	touchUp();		
+	sleep(4000);
+	
+	toast("   [  Start fighting  ]   ");
+	sleep(4000);
+	
+	-- skill delay  ,  -15 mean deplay 30 seconds
+	if (type == "2-10-2") then			
+		toast(string.format("%s %s %s", i ," Use skill , delay ",txtDelaySec," seconds"));			
+	end
+	
+	-- 四捨五入   +  IslandNormalTwo10Hyphen2 平均執行一次兩秒  所以除以2
+	local i = -math.ceil((txtDelaySec/2));
+	
+	--add by sec
+	local j = 0;
+	
+	local isClickedOKButton = false;
+	
+	while true do
+		if (type == "2-10-2") then
+			IslandNormalTwo10Hyphen2(j);
+			sleep(1000);
+			j = j + 1;
+		end
+
+		if (type == "2-12-2") then
+			ContinueClickMode(i);
+			i = i + 1;
+		end
+		
+		if type == "2-12-3" then 										
+			if isColor(395,420,0xFF4462) then
+				isClickedOKButton = true;				
+				IslandNormalTwo12Hyphen3(j,true);				
+			end
+			
+			if isClickedOKButton then
+				IslandNormalTwo12Hyphen3(j,false);			
+			end
+			
+			sleep(500);
+			j = j + 1;
+		end
+	
+		if(type == "3-5-3") then
+			ContinueClickMode(i);
+			i = i + 1;				
+		end
+				
+		if (isColor(980,575,0x6B5534) and isColor(978,142,0x6B5534)) or (isColor(977,208,0x352A1A) and isColor(985,472,0x352A1A)) then
+			toast("戰鬥結束 - win , 執行過關&升級確認");
+					
+			local isExit = false;
+						
+			sleep(1000);
+			touchClick(499,358);
+			sleep(1000);
+			touchClick(489,362);			
+			
+			--toast("升級過關 2新建築物 OK button  417,359");
+			sleep(1000);
+			touchClick(417,359);
+
+			--toast("升級過關 4新建築物 OK button  417,359");
+			sleep(1000);
+			touchClick(350,359);
+			
+			--toast("升級過關 5新建築物 OK button  280,359");
+			sleep(1000);
+			touchClick(280,359);
+			
+			--toast("升級過關 6新建築物 OK button  210,359");
+			sleep(1000);
+			touchClick(210,359);
+		
+			--toast("親密度升級  452,371");
+			sleep(1000);
+			touchClick(452,371);				
+			sleep(1000);
+			touchClick(452,371);
+			sleep(1000);				
+			touchClick(452,371);				
+			sleep(2000);										  		
+
+			if isColor(118,423,0xFF405D) then
+				toast("打贏關卡 OK button double check  - (113,359)");							
+				sleep(5000);				
+				touchDown(113,359);
+				sleep(400);
+				touchUp();												
+				sleep(5000);
+				break;											
+			end	
+			
+			if isColor(118,423,0xFF405D) then
+				toast("打贏關卡 OK button double check  - (113,359)");							
+				sleep(5000);				
+				touchDown(113,359);
+				sleep(400);
+				touchUp();												
+				sleep(5000);
+				break;												
+			end	
+		end	
+		
+		if (isColor(688,200,0xFFF4D6) and isColor(726,467,0xFEF3D5)) then
+			toast("戰鬥結束 - loss");			
+			sleep(8000);
+			touchDown(470,279);
+			sleep(500);
+			touchUp();			
+			sleep(2000);
+			touchDown(470,379);
+			sleep(500);
+			touchUp();				
+			sleep(2000);	
+			touchDown(452,371);
+			sleep(500);
+			touchUp();				
+			sleep(10000);		
+			break;
+		end
+	end
+end
+
+function IslandNormalTwo12Hyphen3(j,clicked)
+	
+	if clicked then
+		
+		sleep(500);
+		-- ok button
+		touchClick(395,420);
+
+		--換隊友
+		sleep(500);
+		touchDown(1087,637);
+		sleep(500);
+		touchUp();
+		sleep(500);
+			
+		--down
+		touchDown(576,360);
+		sleep(200);
+		touchMove(169,500);
+		sleep(1800);
+		touchUp();	
+		
+		-- open  開下面的寶相
+		sleep(500);
+		touchClick(576,360);
+		sleep(1000);
+
+		--right coner up		
+		touchDown(576,360);
+		sleep(200);
+		touchMove(1000,500);
+		sleep(2000);
+		touchMove(1000,800);
+		sleep(2500);
+		touchUp();
+
+		-- open  開上面的寶相
+		sleep(500);
+		touchClick(576,360);
+		sleep(1000);
+
+		--left
+		touchDown(576,360);
+		sleep(200);
+		touchMove(420,30);
+		sleep(1300);
+		touchUp();		
+
+		useSkill1();
+				
+		for i=1,3 do 	
+			touchClick(576,360);
+			sleep(1000);
+			touchClick(576,360);
+			sleep(1000);
+			touchClick(576,360);
+			sleep(1000);
+			touchClick(576,360);
+			sleep(1000);			
+			useSkill1();
+		end
+			
+		toast("換隊友");
+		--換隊友
+		sleep(500);
+		touchDown(1087,637);
+		sleep(500);
+		touchUp();
+		sleep(500);		
+			
+	else
+		touchClick(576,360);
+		sleep(300);
+		touchClick(576,360);
+		sleep(300);
+		touchClick(576,360);
+		sleep(300);
+		touchClick(576,360);
+		sleep(300);
+		touchClick(576,360);
+		sleep(300);				
+		
+		if(j % 3 == 0) then	
+			toast(j);
+		end
+	
+		--Use SKILL by setting
+		if (j > 4 and j % 3 == 0) then			
+			useSkill1();
+		end	
+
+		--if j == 10 then
+			--換隊友
+			--touchClick(1012,680);
+		--end		
+	end
+end
+
+function IslandNormalTwo10Hyphen2(j)
+	-- 1-10 會有確認窗
+	
+	if isColor(395,420,0xFF4462) then
+		touchClick(395,420);
+		
+		sleep(2000);
+		
+		--開上面跟右邊的寶相
+
+		--focuse
+		touchDown(576,360);
+		sleep(500);
+		touchUp();
+		
+		--up
+		touchDown(576,360);
+		sleep(200);
+		touchMove(1047,200);
+		sleep(2300);
+		touchUp();	
+		
+		-- open  開上面的寶相
+		sleep(500);
+		touchClick(576,360);
+		sleep(1000);
+		
+		--down
+		touchDown(576,360);
+		sleep(200);
+		touchMove(169,600);
+		sleep(2300);
+		touchUp();
+		
+		--right
+		touchDown(576,360);
+		sleep(200);
+		touchMove(670,700);
+		sleep(2200);
+		touchUp();		
+		
+		-- open 開右邊的寶相
+		sleep(500);
+		touchClick(576,360);
+		sleep(1000);
+		
+		--left
+		touchDown(576,360);
+		sleep(200);
+		touchMove(540,30);
+		sleep(1800);
+		touchUp();		
+	end	
+	
+	for i=1,9 do			
+		touchClick(576,360);
+	end
+
+	--if(j > 10 and j % 4 == 0) then			
+		--toast("touchClick(576,360)");
+		--for i=1,9 do			
+			--touchClick(576,360);
+		--end
+	--end		
+end
+
+function ContinueClickMode(i)
+	-- up    1030,356
+	-- down 309,347
+	-- left  626,105
+	-- right 631,565
+	
+	--total use 2 sec.
+	for i=1,10 do
+		touchClick(626,105);
+		sleep(70);
+	end
+
+	--total use 1 sec.
+	--local j = 0;
+	--while true do
+		--touchClick(626,105);
+		--sleep(70);
+		--j = j + 1;
+		--if ( j == 10) then
+			--break;		
+		--end
+	--end
+
+	if( i == -20) then
+		toast("skill mode , delay 40 sec ");	
+	end	
+	
+	if( i == -15) then
+		toast("skill mode , delay 30 sec ");	
+	end	
+	
+	if( i == -10) then
+		toast("skill mode , delay 20 sec ");	
+	end	
+	
+	if( i == -5) then
+		toast("skill mode , delay 10 sec ");	
+	end	
+
+	if( i == 0) then
+		toast("skill mode(0)");	
+	end	
+
+	if( i == 5) then
+		toast("skill mode(5)");	
+	end	
+			
+	--Use SKILL by setting
+	if( i > 0 and (i % 3 == 0)) then	
+		useSkill1();
+	end	
+end
+
+function createUI()
+	showLoopSetting(false);		
+	createRadioBox("type","2-10-2",true);	
+	createTextView("labSample1","   小符:紅黃綠紫  中符:紅綠  錢:352  魂:35");
+	newLine();
+	newLine();
+	createRadioBox("type","2-12-2",false);	
+	createTextView("labSample2","   小符:青紅黃綠紫  錢:1800  魂:183");
+	newLine();
+	newLine();
+	createRadioBox("type","2-12-3",false);		
+	createTextView("labSample3","   小符:青紅黃綠  中符:紅綠  錢:1000  魂:90");	
+	newLine();
+	newLine();
+	createRadioBox("type","3-4-2",false);		
+	createTextView("labSample4","   小符:青  中符:黃   錢:???? 魂:????");	
+	newLine();
+	newLine();
+	createRadioBox("type","3-5-3",false);		
+	createTextView("labSample5","   小符:青紅黃紫   錢:1800 魂:192");	
+	newLine();
+	newLine();		
+	createTextView("labdelaySec","此設定適用： 2-12-2 & 3-5-3   技能1 開始使用延遲秒數:");
+	createEditText("txtDelaySec",22,1,50,35);	
+	newLine();	
+	createTextView("info","腳本使用說明跟注意事項        版本：v1.0.2");	
+	newLine();
+	createTextView("info2","短網址： http://ppt.cc/LhAR  (注意區分大小寫)");	
+	newLine();
+	createTextView("info3","永久連結： http://mgamehelper.blogspot.com/2015/02/blog-post.html");
+	-- v102 , 修正 2-10-2 用法師系列 近距戰士系列會跑來開寶物
+	-- to be add 3-4-2
+	-- 
+end
+
+-- 脚本执行入口
+function main()
+	--兼容模式 check
+	if not(isCompatMode()) then
+		toast("兼容模式設定錯誤");
+		sleep(1000000);	
+	end
+	
+	if (type == "3-4-2") then
+		
+		toast ("test mode 4");
+		sleep(7000);
+		
+		-- focuse mouse	
+		touchDown(576,360);
+		sleep(500);
+		touchMove(586,360)
+		touchUp();
+		
+		sleep(1000);
+
+		touchDown(576,360);
+		sleep(200);	
+		--touchMove(576,10); --9 clock
+		touchMove(1100,680); -- 2 clock	
+		sleep(4000);
+		touchMove(1000,500); -- 1 clock
+		touchUp();
+
+		sleep(10000000000000);
+		
+	end
+				
+	toast(type);
+	sleep(3000);
+					
+	while true do
+		sleep(3000);
+		
+		loopFight();
+		
+		toast("loopFight end , sleep 10 sec.");
+		
+		sleep(10000);
+					
+		if (type ==  "2-10-2") then
+			-- 10-2 & 10-3 偏高 , use 690,363
+			toast("2-10-2 結束關卡後 點正中間  690,363");	
+			sleep(6000);
+			touchClick(690,363);
+		end
+
+		if (type == "2-12-2") then
+			-- test on 12-2 , 564,361
+			toast("2-12-2 結束關卡後 點正中間  564,361");	
+			sleep(6000);
+			touchClick(564,361);
+		end	
+				
+		if(type ==  "2-12-3")then
+			toast("2-12-3 結束關卡後 點正中間  564,361");	
+			sleep(6000);
+			touchClick(564,361);	
+		end
+		
+		if(type == "3-5-3") then
+			toast("2-10-2 結束關卡後 點正中間  564,361");	
+			sleep(6000);
+			touchClick(564,361);
+		end
+			
+		sleep(6000);			
+	end						
+end
