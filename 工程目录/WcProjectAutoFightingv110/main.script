@@ -161,13 +161,13 @@ function loopFight()
 	touchUp();	
 	sleep(4000);
 	
-	toast("挑戰 Button");
+	toast("Click challenge button");
 	sleep(4000);
 	touchClick(1003,139);	
 	sleep(4000);
 	
-	toast("Start fighting");
-	sleep(4000);
+	toast("Start fighting after 10 sec.");
+	sleep(10000);
 	
 	-- skill delay  ,  -15 mean deplay 30 seconds
 	if (type == "2-10-2") then			
@@ -280,8 +280,9 @@ function loopFight()
 			j = j + 1;
 									
 			ContinueClickModeWithOutSkill();
-			if( j % 10 == 0) then 
-				toast(j);	
+			if( j % 10 == 0) then 							
+				move(5,1000);
+				toast(j);
 			end
 			
 			-- 打太久 離開地圖
@@ -307,8 +308,8 @@ function loopFight()
 			i = i + 1;				
 		end
 
-		if (isColor(296,646,0xFEEAB6) and isColor(260,646,0xFEE9B6)) then
-			toast("戰鬥結束 - win , 執行過關&升級確認");
+		if (isColor(296,646,0xFEEAB6) and isColor(260,646,0xFEE9B6)) or (isColor(296,646,0x7F755B) and isColor(260,646,0x7F745B))  then
+			toast("Fight end - Result : WIN");
 					
 			local isExit = false;
 						
@@ -344,7 +345,7 @@ function loopFight()
 			sleep(4000);										  		
 
 			if isColor(1105,417,0xFF4260) then
-				toast("打贏關卡 OK button check 1");
+				toast("Click OK button");
 				sleep(5000);
 				touchClick(1105,417);
 				sleep(1000);
@@ -355,7 +356,7 @@ function loopFight()
 			end	
 			
 			if isColor(1105,417,0xFF4260) then
-				toast("打贏關卡 OK button check 2");
+				toast("Click OK button (secound)");
 				sleep(5000);		
 				touchClick(1105,417);
 				sleep(1000);
@@ -366,8 +367,8 @@ function loopFight()
 			end	
 		end	
 		
-		if (isColor(688,200,0xFFF4D6) and isColor(726,467,0xFEF3D5)) then
-			toast("戰鬥結束 - loss");			
+		if (isColor(688,200,0xFFF4D6) and isColor(726,467,0xFEF3D5)) then			
+			toast("Fight end - Result : LOSS");
 			sleep(8000);
 			touchDown(470,279);
 			sleep(500);
@@ -596,7 +597,7 @@ function createUI()
 	--newLine();
 	--newLine();
 	createRadioBox("type","3-4-2",true);
-	createTextView("labSample4","   小符:青紅黃綠  中符:青紅黃橙綠紫  大符:紅綠黃  錢:600  魂:60 ");	
+	createTextView("labSample4","   小符:青紅黃綠  中符:青紅黃橙綠紫  大符:紅黃橙綠黃  錢:600  魂:60 ");	
 	newLine();
 	newLine();
 	createRadioBox("type","3-5-3",false);     --建議 "劍"
@@ -648,12 +649,13 @@ end
 function main()
 	--兼容模式 check
 	if not(isCompatMode()) then
-		toast("兼容模式設定錯誤");
+		--toast("兼容模式設定錯誤");
+		toast("CompatMode Error");
 		sleep(1000000);	
 	end
 					
 	toast(type);
-	toast(string.format("%s %s", type, "   -   testv15"));			
+	toast(string.format("%s %s", type, " "));			
 	sleep(3000);
 					
 	while true do
@@ -667,14 +669,14 @@ function main()
 							
 		if (type ==  "2-10-2") then
 			-- 10-2 & 10-3 偏高 , use 690,363
-			toast("2-10-2 結束後點  546,374");	
+			toast("2-10-2 ending > click 546,374");	
 			sleep(6000);
 			touchClick(546,374);
 		end
 
 		if (type == "2-12-2") then
 			-- test on 12-2 , 564,361
-			toast("2-12-2 結束後點  634,366");	
+			toast("2-12-2 ending > click  634,366");	
 			sleep(6000);
 			touchClick(634,366);
 		end	
@@ -686,7 +688,7 @@ function main()
 		--end
 		
 		if (type == "3-4-2") or (type == "3-5-3") then
-			toast("3-5-3 結束後點  636,366");	
+			toast("3-5-3 ending > click  636,366");	
 			sleep(6000);
 			touchClick(636,366);
 		end		
