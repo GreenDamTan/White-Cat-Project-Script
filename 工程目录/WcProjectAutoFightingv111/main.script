@@ -1,5 +1,5 @@
 -----------------------------------------------------------------------
---WcProjectAutoFightingv110
+--WcProjectAutoFightingv111
 -----------------------------------------------------------------------
 -- 创建脚本界面入口
 
@@ -11,6 +11,37 @@ function clickItem2Color()
 end
 function clickItem3Color()
 	touchClick(920,360);
+end
+
+function isMainMapColor()
+	if isColor(142,13,0xFFCD13) and isColor(116,703,0xFFDA19) then
+		return true;
+	else
+		return false;	
+	end
+end
+
+function isAndriodHomeColor()
+	if isColor(1080,29,0x3F9BBF) and isColor(831,32,0x000000) then
+		return true;
+	else
+		return false;	
+	end
+end
+
+function clickWhiteCatApp()
+	local flag,x,y = findColor(0x2F7F97);	 --610,347
+	local flag2,x2,y2 = findColor(0x54DEF4);	--611,347
+	if flag and flag2 then
+	  toast("在坐标("..x..","..y..") 找到白貓");
+	  sleep(500);
+	  touchClick(x,y);
+	  sleep(500);
+	end		
+end
+
+function clickMap()
+	touchClick(1134,663);
 end
 
 function move(clock,time)	
@@ -235,6 +266,10 @@ function loopFight()
 				move(11,2000);								
 				sleep(2000);
 				
+				if isMainMapColor() then
+					break;				
+				end
+
 				--[map 2]			
 				toast("map 2");
 				sleep(5000);
@@ -249,10 +284,16 @@ function loopFight()
 				move(10,4000);
 				touchClick(576,360);
 				sleep(500);
+				touchClick(576,360);
+				sleep(500);				
 				
 				move(1,2000);
 				move(3,2000);
 				
+				if isMainMapColor() then
+					break;				
+				end
+
 				--[map 2]
 				for i=1,10 do
 					touchClick(576,360);
@@ -284,13 +325,16 @@ function loopFight()
 			if( j % 10 == 0) then 							
 				move(5,1000);
 				toast(j);
+				if isMainMapColor() then
+					break;				
+				end				
 			end
 			
 			-- 打太久 離開地圖
-			if( j == 100) then
+			if( j == 60) then
 				sleep(3000);
 				input(4);
-				sleep(3000);
+				sleep(10000);
 				touchClick(716,235); -- 退出button
 				sleep(1000);
 				touchClick(712,275); -- 確認退出button				
@@ -371,17 +415,11 @@ function loopFight()
 		if (isColor(688,200,0xFFF4D6) and isColor(726,467,0xFEF3D5)) then			
 			toast("Fight end - Result : LOSS");
 			sleep(8000);
-			touchDown(470,279);
-			sleep(500);
-			touchUp();			
+			touchClick(470,279);			
 			sleep(2000);
-			touchDown(470,379);
-			sleep(500);
-			touchUp();				
+			touchClick(470,379);			
 			sleep(2000);	
-			touchDown(452,371);
-			sleep(500);
-			touchUp();				
+			touchClick(452,371);
 			sleep(10000);
 			j = 0;	
 			break;
@@ -648,6 +686,16 @@ end
 
 -- 脚本执行入口
 function main()
+		
+
+	--todo , add main screen sheck.	
+	--if isAndriodHomeColor() then 
+		--clickWhiteCatApp()
+	--end
+
+		
+	sleep("11111111");
+
 	--兼容模式 check
 	if not(isCompatMode()) then
 		--toast("兼容模式設定錯誤");
@@ -658,7 +706,10 @@ function main()
 	toast(type);
 	toast(string.format("%s %s", type, " "));			
 	sleep(3000);
-					
+				
+	local playCounter = 0;
+	toast(string.format("%s %s", "@playCounter = ",playCounter));			
+	
 	while true do
 		sleep(3000);
 		
@@ -694,6 +745,8 @@ function main()
 			touchClick(636,366);
 		end		
 			
-		sleep(6000);			
+		sleep(6000);	
+		playCounter = playCounter + 1;			
+		toast(string.format("%s %s", "playCounter = ",playCounter));			
 	end			
 end
