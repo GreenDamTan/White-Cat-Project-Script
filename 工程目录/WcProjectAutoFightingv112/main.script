@@ -1,5 +1,5 @@
 -----------------------------------------------------------------------
---WcProjectAutoFightingv111
+--WcProjectAutoFightingv112
 -----------------------------------------------------------------------
 -- 创建脚本界面入口
 
@@ -12,15 +12,22 @@ end
 function clickItem3Color()
 	touchClick(920,360);
 end
+function isHasGreenBackButtonColor()
+	-- didnt have back button , which mean not in start fight mode.
+	if isColor(1007,586,0x61350F,99) or isColor(1005,590,0x6C3D12,99) then
+		return true;
+	else
+		return false;
+	end
+end
 
 function isMainMapColor()
 	if isColor(142,13,0xFFCD13) and isColor(116,703,0xFFDA19) then
 		return true;
 	else
-		return false;	
+		return false;
 	end
 end
-
 function isAndriodHomeColor()
 	if isColor(1080,29,0x3F9BBF) and isColor(831,32,0x000000) then
 		return true;
@@ -138,14 +145,14 @@ function loopFight()
 		--sleep(4000);		
 	--end
 
-	if (type == "2-12-2") then
+	if (type == "2-12-2") and isHasGreenBackButtonColor() then
 		toast("click 12-2");
 		sleep(4000);
 		clickItem2Color();
 		sleep(4000);
 	end
 	
-	if (type == "2-10-2") then
+	if (type == "2-10-2") and isHasGreenBackButtonColor() then
 		toast("click , 2-10-2");
 		sleep(4000);
 		
@@ -174,16 +181,20 @@ function loopFight()
 		sleep(4000);
 	end	
 	
-	if (type == "3-4-2") then
+	if (type == "3-4-2") and isHasGreenBackButtonColor() then
 		toast("click 3-4-2");		
 		clickItem3Color();
 		sleep(4000);				
 	end
-
-	if(type == "3-5-3") then
+	
+	if(type == "3-5-3") and isHasGreenBackButtonColor() then
 		toast("click 3-5-3");		
 		clickItem2Color();
 		sleep(4000);
+	end
+	
+	if not(isHasGreenBackButtonColor()) then
+		goto exitfunciton;
 	end
 	
 	toast("use first friend");
@@ -215,6 +226,11 @@ function loopFight()
 	local isClickedOKButton = false;
 	
 	while true do
+		
+		if isAndriodHomeColor() then
+			break;		
+		end
+		
 		if (type == "2-10-2") then
 			IslandNormalTwo10Hyphen2(j);
 			sleep(1000);
@@ -223,6 +239,9 @@ function loopFight()
 
 		if (type == "2-12-2") then
 			ContinueClickMode(i);
+			if isAndriodHomeColor() then
+				break;			
+			end
 			i = i + 1;
 		end
 					
@@ -266,9 +285,9 @@ function loopFight()
 				move(11,2000);								
 				sleep(2000);
 				
-				if isMainMapColor() then
-					break;				
-				end
+				--if isMainMapColor() then
+					--break;				
+				--end
 
 				--[map 2]			
 				toast("map 2");
@@ -290,9 +309,9 @@ function loopFight()
 				move(1,2000);
 				move(3,2000);
 				
-				if isMainMapColor() then
-					break;				
-				end
+				--if isMainMapColor() then
+					--break;				
+				--end
 
 				--[map 2]
 				for i=1,10 do
@@ -322,12 +341,17 @@ function loopFight()
 			j = j + 1;
 									
 			ContinueClickModeWithOutSkill();
+			
+			if isAndriodHomeColor() then
+				break;			
+			end
+
 			if( j % 10 == 0) then 							
 				move(5,1000);
 				toast(j);
-				if isMainMapColor() then
-					break;				
-				end				
+				--if isMainMapColor() then
+					--break;				
+				--end				
 			end
 			
 			-- 打太久 離開地圖
@@ -349,7 +373,10 @@ function loopFight()
 		end
 						
 		if(type == "3-5-3") then
-			ContinueClickMode(i);
+			ContinueClickMode(i);	
+			if isAndriodHomeColor() then
+				break;			
+			end
 			i = i + 1;				
 		end
 
@@ -425,6 +452,8 @@ function loopFight()
 			break;
 		end
 	end
+	
+	::exitfunciton::
 end
 
 function IslandNormalTwo12Hyphen3(j,clicked)
@@ -561,6 +590,10 @@ function ContinueClickMode(i)
 	-- left  626,105
 	-- right 631,565
 	
+	if isAndriodHomeColor() then
+		goto exitContinueClickMode
+	end
+
 	--total use 2 sec.
 	for i=1,10 do
 		touchClick(626,105);
@@ -606,6 +639,8 @@ function ContinueClickMode(i)
 	if( i > 0 and (i % 3 == 0)) then	
 		useSkill1();
 	end	
+	
+	::exitContinueClickMode::
 end
 
 function ContinueClickModeWithOutSkill()
@@ -614,11 +649,18 @@ function ContinueClickModeWithOutSkill()
 	-- left  626,105
 	-- right 631,565
 	
+
+	if isAndriodHomeColor() then
+		goto exitContinueClickMode
+	end
+	
 	--total use 2 sec.
 	for i=1,10 do
 		touchClick(626,105);
 		sleep(70);
 	end
+	
+	::exitContinueClickMode::
 end
 
 function createUI()
@@ -635,11 +677,11 @@ function createUI()
 	--createTextView("labSample3","   (開發中)\r\n 小符:青紅黃綠  中符:紅綠  錢:1000  魂:90");	
 	--newLine();
 	--newLine();
-	createRadioBox("type","3-4-2",true);
+	createRadioBox("type","3-4-2",false);
 	createTextView("labSample4","   小符:青紅黃綠  中符:青紅黃橙綠紫  大符:紅黃橙綠黃  錢:600  魂:60 ");	
 	newLine();
 	newLine();
-	createRadioBox("type","3-5-3",false);     --建議 "劍"
+	createRadioBox("type","3-5-3",true);     --建議 "劍"
 	createTextView("labSample5","   小符:青紅黃紫   錢:1800 魂:192");	
 	newLine();
 	newLine();
@@ -686,16 +728,12 @@ end
 
 -- 脚本执行入口
 function main()
-		
-	toast("AAAA");
-	
-
-	--todo , add main screen sheck.	
-	--if isAndriodHomeColor() then 
-		--clickWhiteCatApp()
-	--end
-		
-	--sleep("11111111");
+	if isAndriodHomeColor() then 
+		toast("Game Crash........");
+		clickWhiteCatApp();
+		sleep(20000);
+		--todo , daily Treasure		
+	end	
 
 	--兼容模式 check
 	if not(isCompatMode()) then
@@ -703,23 +741,32 @@ function main()
 		toast("CompatMode Error");
 		sleep(1000000);	
 	end
-					
-	toast(type);
-	toast(string.format("%s %s", type, " "));			
+						
+	toast(string.format("%s %s",  "選擇關卡: ",type));			
 	sleep(3000);
 				
 	local playCounter = 0;
 	toast(string.format("%s %s", "@playCounter = ",playCounter));			
 	
 	while true do
+				
 		sleep(3000);
 		
 		loopFight();
 		
 		toast("loopFight end , sleep 10 sec.");
 		
+		if isAndriodHomeColor() then 
+			toast("Game Crash........");
+			clickWhiteCatApp();
+			sleep(20000);
+			goto restartGame
+		end
+		
 		sleep(10000);
-							
+			
+		::restartGame::
+		
 		if (type ==  "2-10-2") then
 			-- 10-2 & 10-3 偏高 , use 690,363
 			toast("2-10-2 ending > click 546,374");	
