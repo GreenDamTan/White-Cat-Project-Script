@@ -1,20 +1,18 @@
 -----------------------------------------------------------------------
 --WcProjectAutoFightingv112
 -----------------------------------------------------------------------
--- 创建脚本界面入口
-
 function clickItem1Color()
-	touchClick(616,360);
+	touchClick(680,367);
 end
 function clickItem2Color()
-	touchClick(772,360);
+	touchClick(850,366);
 end
 function clickItem3Color()
-	touchClick(920,360);
+	touchClick(1010,366);
 end
 function isHasGreenBackButtonColor()
 	-- didnt have back button , which mean not in start fight mode.
-	if isColor(1007,586,0x61350F,99) or isColor(1005,590,0x6C3D12,99) then
+	if isColor(1099,672,0x55B929,99) or isColor(1106,543,0x55B929,99) then
 		return true;
 	else
 		return false;
@@ -22,14 +20,15 @@ function isHasGreenBackButtonColor()
 end
 
 function isMainMapColor()
-	if isColor(142,13,0xFFCD13) and isColor(116,703,0xFFDA19) then
+	if isColor(164,14,0xFFD71D) and isColor(162,648,0xFFD119) then
 		return true;
 	else
 		return false;
 	end
 end
+
 function isAndriodHomeColor()
-	if isColor(1080,29,0x3F9BBF) and isColor(831,32,0x000000) then
+	if isColor(1164,32,0x3F9BBF) and isColor(1164,26,0x3F9BBF) then
 		return true;
 	else
 		return false;	
@@ -37,8 +36,8 @@ function isAndriodHomeColor()
 end
 
 function clickWhiteCatApp()
-	local flag,x,y = findColor(0x2F7F97);	 --610,347
-	local flag2,x2,y2 = findColor(0x54DEF4);	--611,347
+	local flag,x,y = findColor(0x8D200F);	 --610,347
+	local flag2,x2,y2 = findColor(0xB20705);	--611,347
 	if flag and flag2 then
 	  toast("在坐标("..x..","..y..") 找到白貓");
 	  sleep(500);
@@ -48,7 +47,7 @@ function clickWhiteCatApp()
 end
 
 function clickMap()
-	touchClick(1134,663);
+	touchClick(1213,652);
 end
 
 function move(clock,time)	
@@ -118,7 +117,7 @@ function useSkill1()
 	touchDown(679,315);
 	sleep(500);
 	touchMove(679-200,315+150);-- skill 1 position
-	toast("skll 1");
+	--toast("skll 1");
 	--touchMove(620,491);-- skill 2 position
 	touchUp();
 	sleep(500);	
@@ -136,15 +135,6 @@ end
 
 function loopFight()
 	
-	--if (type == "2-12-3") then 
-		--toast("click 12-3  (536,353)");
-		--sleep(4000);
-		--touchDown(536,353);
-		--sleep(400);
-		--touchUp();
-		--sleep(4000);		
-	--end
-
 	if (type == "2-12-2") and isHasGreenBackButtonColor() then
 		toast("click 12-2");
 		sleep(4000);
@@ -199,14 +189,14 @@ function loopFight()
 	
 	toast("use first friend");
 	sleep(4000);
-	touchDown(344,336);
+	touchDown(402,379);
 	sleep(500);
 	touchUp();	
 	sleep(4000);
 	
 	toast("Click challenge button");
 	sleep(4000);
-	touchClick(1003,139);	
+	touchClick(1089,124);	
 	sleep(4000);
 	
 	toast("Start fighting after 10 sec.");
@@ -359,12 +349,12 @@ function loopFight()
 				sleep(3000);
 				input(4);
 				sleep(10000);
-				touchClick(716,235); -- 退出button
+				touchClick(779,229); -- 退出button
 				sleep(1000);
-				touchClick(712,275); -- 確認退出button				
+				touchClick(775,281); -- 確認退出button				
 				sleep(5000);
-				touchClick(730,369); -- 以星盤強化 button
-				touchClick(730,369); -- 以星盤強化 button
+				touchClick(790,375); -- 以星盤強化 button
+				touchClick(790,375); -- 以星盤強化 button
 				sleep(5000);
 				--回到主地圖瞜
 				j = 0;
@@ -380,8 +370,9 @@ function loopFight()
 			i = i + 1;				
 		end
 
-		if (isColor(296,646,0xFEEAB6) and isColor(260,646,0xFEE9B6)) or (isColor(296,646,0x7F755B) and isColor(260,646,0x7F745B))  then
-			toast("Fight end - Result : WIN");
+		--下面背景色
+		if isColor(1195,677,0x2E1D0D) and isColor(1196,654,0x301C0C)  then
+			toast("戰鬥結束 WIN");
 					
 			local isExit = false;
 						
@@ -416,25 +407,23 @@ function loopFight()
 			
 			sleep(4000);										  		
 
-			if isColor(1105,417,0xFF4260) then
+			if isColor(1196,434,0xFF425E) then
 				toast("Click OK button");
 				sleep(5000);
-				touchClick(1105,417);
+				touchClick(1196,434);
 				sleep(1000);
-				touchClick(1105,417);
-				sleep(5000);
-				j = 0;
+				touchClick(1196,434);
+				sleep(5000);				
 				break;											
 			end	
 			
 			if isColor(1105,417,0xFF4260) then
 				toast("Click OK button (secound)");
-				sleep(5000);		
-				touchClick(1105,417);
-				sleep(1000);
-				touchClick(1105,417);
 				sleep(5000);
-				j = 0;
+				touchClick(1196,434);
+				sleep(1000);
+				touchClick(1196,434);
+				sleep(5000);				
 				break;												
 			end	
 		end	
@@ -612,19 +601,19 @@ function ContinueClickMode(i)
 	--end
 
 	if( i == -20) then
-		toast("skill mode , delay 40 sec ");	
+		toast("skill mode , delay 40 sec");	
 	end	
 	
 	if( i == -15) then
-		toast("skill mode , delay 30 sec ");	
+		toast("skill mode , delay 30 sec");	
 	end	
 	
 	if( i == -10) then
-		toast("skill mode , delay 20 sec ");	
+		toast("skill mode , delay 20 sec");	
 	end	
 	
 	if( i == -5) then
-		toast("skill mode , delay 10 sec ");	
+		toast("skill mode , delay 10 sec");	
 	end	
 
 	--if( i == 0) then
@@ -665,18 +654,14 @@ end
 
 function createUI()
 	showLoopSetting(false);
-	createRadioBox("type","2-10-2",false);    -- 用法師當leader test on 2015.04.04
-	createTextView("labSample1","   小符:紅黃綠紫  中符:紅綠  錢:352  魂:35");
-	newLine();
-	newLine();
+	--createRadioBox("type","2-10-2",false);    -- 用法師當leader test on 2015.04.04
+	--createTextView("labSample1","   小符:紅黃綠紫  中符:紅綠  錢:352  魂:35");
+	--newLine();
+	--newLine();
 	createRadioBox("type","2-12-2",false);     --建議 "劍"
 	createTextView("labSample2","   小符:青紅黃綠紫  錢:1800  魂:183");
 	newLine();
 	newLine();
-	--createRadioBox("type","2-12-3",false); 
-	--createTextView("labSample3","   (開發中)\r\n 小符:青紅黃綠  中符:紅綠  錢:1000  魂:90");	
-	--newLine();
-	--newLine();
 	createRadioBox("type","3-4-2",false);
 	createTextView("labSample4","   小符:青紅黃綠  中符:青紅黃橙綠紫  大符:紅黃橙綠黃  錢:600  魂:60 ");	
 	newLine();
@@ -748,25 +733,19 @@ function main()
 	local playCounter = 0;
 	toast(string.format("%s %s", "@playCounter = ",playCounter));			
 	
-	while true do
-				
-		sleep(3000);
-		
-		loopFight();
-		
-		toast("loopFight end , sleep 10 sec.");
-		
+	while true do				
+		sleep(3000);		
+		loopFight();		
+		toast("戰鬥結束, 等待10秒.");		
 		if isAndriodHomeColor() then 
-			toast("Game Crash........");
+			toast("遊戲 Crash........");
 			clickWhiteCatApp();
 			sleep(20000);
 			goto restartGame
 		end
 		
-		sleep(10000);
-			
-		::restartGame::
-		
+		sleep(10000);			
+		::restartGame::		
 		if (type ==  "2-10-2") then
 			-- 10-2 & 10-3 偏高 , use 690,363
 			toast("2-10-2 ending > click 546,374");	
@@ -776,23 +755,16 @@ function main()
 
 		if (type == "2-12-2") then
 			-- test on 12-2 , 564,361
-			toast("2-12-2 ending > click  634,366");	
+			toast("2-12-2 ending > click  683,366");	
 			sleep(6000);
-			touchClick(634,366);
+			touchClick(683,366);
 		end	
 				
-		--if(type ==  "2-12-3")then
-			--toast("2-12-3 結束後點  636,366");	
-			--sleep(6000);
-			--touchClick(636,366);	
-		--end
-		
 		if (type == "3-4-2") or (type == "3-5-3") then
 			toast("3-5-3 ending > click  636,366");	
 			sleep(6000);
 			touchClick(636,366);
-		end		
-			
+		end					
 		sleep(6000);	
 		playCounter = playCounter + 1;			
 		toast(string.format("%s %s", "playCounter = ",playCounter));			
